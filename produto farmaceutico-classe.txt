@@ -1,0 +1,160 @@
+import java.util.Scanner;
+
+/**
+ * Classe abstrata que representa um produto farmacêutico.
+ * Extende a classe {@code Produto} e inclui informações adicionais como prescrição,
+ * médico prescritor e categoria.
+ */
+abstract class ProdutoFarmaceuntico extends Produto {
+
+    /**
+     * Indica se o produto necessita de prescrição médica.
+     */
+    protected boolean prescricao;
+
+    /**
+     * Nome do médico que prescreveu o produto, se aplicável.
+     */
+    protected String medicoPrescritor;
+
+    /**
+     * Categoria do produto farmacêutico (ex.: beleza, animais, bem-estar, bebés, outro).
+     */
+    protected String categoria;
+
+    /**
+     * Construtor padrão para a classe ProdutoFarmaceuntico.
+     */
+    public ProdutoFarmaceuntico() {}
+
+    /**
+     * Método para criar e inicializar os atributos de um ProdutoFarmaceuntico.
+     * O usuário é solicitado a inserir informações como se o produto requer prescrição
+     * e sua categoria.
+     */
+    public void CriarProdutoFarmaceuntico() {
+        Scanner dado = new Scanner(System.in);
+        boolean verificador = true;
+
+        // Determina se o produto requer prescrição
+        System.out.println("\n É um produto com Prescrição? (s ou n)");
+        while (verificador) {
+            String v = dado.nextLine();
+            switch (v.toLowerCase().trim()) {
+                case "s":
+                    this.prescricao = true;
+                    verificador = false;
+                    break;
+                case "n":
+                    this.prescricao = false;
+                    verificador = false;
+                    break;
+                default:
+                    System.out.println("\n Opção Inválida. É um produto com Prescrição? **S(sim) ou N(não)**\n");
+            }
+        }
+        verificador = true;
+
+        // Se requer prescrição
+        if (prescricao) {
+            System.out.println("\nInforme o nome do médico prescritor:");
+            this.medicoPrescritor = dado.nextLine();
+            this.categoria = null;
+        } else {
+            this.medicoPrescritor = null;
+
+            // Se não requer prescrição, solicita a categoria
+            String[] categ = new String[]{"beleza", "animais", "bem-estar", "bebés", "outro"};
+            while (verificador) {
+                System.out.println("\nCategoria do produto (beleza, animais, bem-estar, bebés, outro): ");
+                String categoria = dado.nextLine();
+
+                for (String categor : categ) {
+                    if (categoria.toLowerCase().trim().equals(categor.trim().toLowerCase())) {
+                        this.categoria = categoria;
+                        System.out.println("\nCategoria válida: " + this.categoria);
+                        verificador = false;
+                        break;
+                    }
+                }
+                if (this.categoria == null)
+                    System.out.println("\nCategoria inválida, tente outra vez.");
+            }
+        }
+    }
+
+    /**
+     * Calcula o imposto baseado na localização e nas características do produto.
+     *
+     * @return O valor do imposto aplicado.
+     */
+    public double imposto() {
+        if (this.prescricao) {
+            switch ((super.localizacao).trim().toLowerCase()) {
+                case "continente":
+                    super.setImpostos(6);
+                    break;
+                case "madeira":
+                    super.setImpostos(5);
+                    break;
+                case "açores":
+                    super.setImpostos(4);
+                    break;
+                default:
+                    System.out.println("\nLocalização Desconhecida '''" + super.localizacao + "'''");
+                    super.setImpostos(0);
+            }
+        } else {
+            switch ((super.localizacao).trim().toLowerCase()) {
+                case "continente":
+                case "madeira":
+                case "açores":
+                    super.setImpostos(23);
+
+                    // Reduz 1% do imposto para a categoria "animais"
+                    if ((this.categoria.toLowerCase().trim()).equals("animais"))
+                        super.setImpostos(getImpostos() - 1);
+                    break;
+
+                default:
+                    System.out.println("\nLocalização Desconhecida '''" + super.localizacao + "'''");
+                    super.setImpostos(0);
+            }
+        }
+        return super.getImpostos();
+    }
+
+    /**
+     * Calcula o valor total do produto com imposto aplicado.
+     *
+     * @return O valor total com imposto.
+     */
+    public double totalComImposto() {
+        this.setValComImposto(super.getValorUnitario() + super.getValorUnitario() * (super.getImpostos() * 0.01));
+        return getValComImposto();
+    }
+
+    /**
+     * Retorna uma representação textual do produto farmacêutico, incluindo
+     * informações sobre prescrição, categoria, impostos e valor com imposto.
+     *
+     * @return Uma string com os detalhes do produto farmacêutico.
+     */
+    @Override
+    public String toString() {
+        if (this.prescricao)
+            return super.toString() + "ProdutoFarmaceuntico{" +
+                    "prescricao=" + prescricao +
+                    ", medicoPrescritor='" + medicoPrescritor + '\'' +
+                    ", categoria='" + categoria + '\'' +
+                    ", impostos=" + getImpostos() +
+                    ", valComImposto=" + getValComImposto() +
+                    "} ";
+        else
+            return super.toString() + "ProdutoFarmaceuntico{" +
+                    ", categoria='" + categoria + '\'' +
+                    ", impostos=" + getImpostos() +
+                    ", valComImposto=" + getValComImposto() +
+                    "} ";
+    }
+}

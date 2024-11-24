@@ -1,0 +1,234 @@
+/**
+ * Classe abstrata que representa um produto genérico.
+ * Fornece atributos e métodos básicos para manipulação de informações sobre o produto.
+ * Classes derivadas devem implementar os métodos abstratos {@link #imposto()} 
+ * e {@link #totalComImposto()}.
+ */
+abstract class Produto {
+
+    /**
+     * Código único do produto.
+     */
+    private String codigo;
+
+    /**
+     * Nome do produto.
+     */
+    private String nome;
+
+    /**
+     * Descrição detalhada do produto.
+     */
+    private String descricao;
+
+    /**
+     * Quantidade disponível do produto.
+     */
+    private int quantidade;
+
+    /**
+     * Valor unitário do produto.
+     */
+    private double valorUnitario;
+
+    /**
+     * Localização geográfica onde o produto está disponível (ex.: continente, madeira, açores).
+     */
+    protected String localizacao;
+
+    /**
+     * Impostos aplicados ao produto (em porcentagem).
+     */
+    private double impostos;
+
+    /**
+     * Valor total do produto incluindo impostos.
+     */
+    private double valComImposto;
+
+    // GETTERS
+
+    /**
+     * Obtém o valor unitário do produto.
+     *
+     * @return Valor unitário.
+     */
+    public double getValorUnitario() {
+        return valorUnitario;
+    }
+
+    /**
+     * Obtém a quantidade disponível do produto.
+     *
+     * @return Quantidade.
+     */
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    /**
+     * Obtém o código único do produto.
+     *
+     * @return Código do produto.
+     */
+    public String getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * Obtém a descrição do produto.
+     *
+     * @return Descrição do produto.
+     */
+    public String getDescricao() {
+        return descricao;
+    }
+
+    /**
+     * Obtém o nome do produto.
+     *
+     * @return Nome do produto.
+     */
+    public String getNome() {
+        return nome;
+    }
+
+    /**
+     * Obtém os impostos aplicados ao produto.
+     *
+     * @return Valor dos impostos (em porcentagem).
+     */
+    protected double getImpostos() {
+        return impostos;
+    }
+
+    /**
+     * Obtém o valor total do produto incluindo impostos.
+     *
+     * @return Valor com impostos aplicados.
+     */
+    protected double getValComImposto() {
+        return valComImposto;
+    }
+
+    // SETTERS
+
+    /**
+     * Define o código do produto.
+     *
+     * @param codigo Código único do produto.
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    /**
+     * Define a descrição do produto.
+     *
+     * @param descricao Descrição detalhada do produto.
+     */
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    /**
+     * Define o nome do produto.
+     *
+     * @param nome Nome do produto.
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    /**
+     * Define a quantidade disponível do produto.
+     *
+     * @param quantidade Quantidade do produto.
+     */
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    /**
+     * Define o valor unitário do produto.
+     *
+     * @param valorUnitario Valor unitário do produto.
+     */
+    public void setValorUnitario(double valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
+    /**
+     * Define os impostos aplicados ao produto.
+     *
+     * @param impostos Valor dos impostos (em porcentagem).
+     */
+    protected void setImpostos(double impostos) {
+        this.impostos = impostos;
+    }
+
+    /**
+     * Define o valor total do produto incluindo impostos.
+     *
+     * @param valComImposto Valor com impostos aplicados.
+     */
+    protected void setValComImposto(double valComImposto) {
+        this.valComImposto = valComImposto;
+    }
+
+    /**
+     * Construtor padrão da classe Produto.
+     */
+    public Produto() {}
+
+    /**
+     * Construtor completo da classe Produto.
+     *
+     * @param codigo Código único do produto.
+     * @param nome Nome do produto.
+     * @param descricao Descrição detalhada do produto.
+     * @param quantidade Quantidade disponível do produto.
+     * @param valorUnitario Valor unitário do produto.
+     * @param localizacao Localização geográfica do produto.
+     */
+    public Produto(String codigo, String nome, String descricao, int quantidade, double valorUnitario, String localizacao) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.quantidade = quantidade;
+        this.valorUnitario = valorUnitario;
+        this.localizacao = localizacao;
+    }
+
+    /**
+     * Método abstrato que calcula o valor dos impostos aplicados ao produto.
+     * Deve ser implementado pelas subclasses.
+     *
+     * @return Valor dos impostos.
+     */
+    abstract double imposto();
+
+    /**
+     * Método abstrato que calcula o valor total do produto com impostos.
+     * Deve ser implementado pelas subclasses.
+     *
+     * @return Valor total com impostos.
+     */
+    abstract double totalComImposto();
+
+    /**
+     * Retorna uma representação textual dos atributos do produto.
+     *
+     * @return String contendo os detalhes do produto.
+     */
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "codigo='" + codigo + '\'' +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", quantidade=" + quantidade +
+                ", valorUnitario=" + valorUnitario +
+                '}';
+    }
+}
